@@ -5,13 +5,14 @@ using SQLite;
 public class GestionLista
 {
     [PrimaryKey, AutoIncrement]
-    public int Id { get; set; }
+    public int Id {get; set;}
     [NotNull]
     public string? Nombre {get;set;}
-    public string? Descripcion {get;set;}
-    public DateTime FechaLimite{get;set;}
-    [NotNull]
+     [NotNull]
     public string? EstadoTarea {get;set;}
-    public DateTime CambioFecha{get;set;}
+    public string? Descripcion {get;set;}
+    [NotNull]
+    public DateTime FechaLimite{get;set;} //fecha unica que se hara manual 
+    public DateTime CambioFechaEstado{get;set;} // fecha automatica
 
 }

@@ -16,23 +16,23 @@ public class DataBaseService : IDataBaseService
         _db.CreateTableAsync<GestionLista>();
     }
 
-    public Task<int> CreateTask(GestionLista lista)
+    public async Task<int> CreateTask(GestionLista lista)
     {
-        throw new NotImplementedException();
+        return await _db.InsertAsync(lista);
     }
 
-    public Task<int> DeleteProducto(GestionLista lista)
+    public async Task<int> DeleteTask(GestionLista lista)
     {
-        throw new NotImplementedException();
+        return await _db.DeleteAsync(lista);
     }
 
-    public Task<List<GestionLista>> GetAllProductos()
+    public async Task<List<GestionLista>> GetAllTask()
     {
-        throw new NotImplementedException();
+        return await _db.Table<GestionLista>().ToListAsync();
     }
 
-    public Task<int> UpdateTask(GestionLista lista)
+    public async Task<int> UpdateTask(GestionLista lista)
     {
-        throw new NotImplementedException();
+        return await _db.UpdateAsync(lista);
     }
 }
