@@ -1,4 +1,6 @@
-﻿namespace GestionTareas_Proyecto;
+﻿using GestionTareas_Proyecto.Views;
+
+namespace GestionTareas_Proyecto;
 
 public partial class App : Application
 {
@@ -6,6 +8,6 @@ public partial class App : Application
 	{
 		InitializeComponent();
 
-		MainPage = new AppShell();
+		MainPage = new GestionListaView();
 	}
 }
