@@ -42,7 +42,7 @@ public partial class GestionListaViewModels: ObservableObject
     }
 
     [RelayCommand]
-    private async Task GuardarActualizarProducto()
+    private async Task Validaciones()
     {
         try
         {
@@ -59,17 +59,17 @@ public partial class GestionListaViewModels: ObservableObject
             }
             
             // aqui parte validacion
-            /*if (ProductoSeleccionado.Id == 0)
+            if (TareaSeleccionada.Id == 0)
             {
-                await _dbService.CreateProducto(ProductoSeleccionado);
+                await _dbService.CreateTask(TareaSeleccionada);
             } else
             {
-                await _dbService.UpdateProdcuto(ProductoSeleccionado);
+                await _dbService.UpdateTask(TareaSeleccionada);
             }
             
-            await LoadProductos();
-            ProductoSeleccionado = new Producto();
-            */
+            await CargarTareas();
+            TareaSeleccionada = new GestionLista();
+            
 
 
         }

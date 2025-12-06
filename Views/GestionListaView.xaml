@@ -12,21 +12,68 @@
 
     <ScrollView>
         <VerticalStackLayout Spacing="10"
-                Padding="15">
+                             Padding="15">
             <Label Text="To-Do List"
-                    FontSize="Title"
-                    FontFamily="poppins"
-                    TextColor="#FF324589"
-                    FontAttributes="Bold"
-                    HorizontalOptions="Center"/>
+                   FontSize="Title"
+                   FontFamily="poppins"
+                   TextColor="#FF2A719D"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
 
+            <Label Text="Nombre de tarea"
+                   FontFamily="poppins"
+                   FontAttributes="Bold"/>
+            <Entry Placeholder="Escribe el titulo de tu tarea"
+                   Text="{Binding TareaSeleccionada.Nombre}"/>
 
-            <Entry Placeholder="Nombre"
-                    Text="{Binding TareaSeleccionada.Nombre}"/>
+            <Label Text="Descripcion de Tarea"
+                   FontFamily="poppins"
+                   FontAttributes="Bold"/>
             <Entry Placeholder="Descripción"
-                    Text="{Binding TareaSeleccionada.Descripcion}"/>
+                   Text="{Binding TareaSeleccionada.Descripcion}"/>
 
+            <HorizontalStackLayout Spacing="20"
+                                   VerticalOptions="Center">
+                <Label Text="  Establezca la fecha limite"
+                    FontFamily="poppins"
+                            FontAttributes="Bold"
+                       VerticalOptions="Center"
+                       TextColor="#FF4A4AC9"/>
+                <DatePicker Date="{Binding TareaSeleccionada.FechaLimite}"
+                            FontFamily="poppins"
+                            FontAttributes="Bold"
+                            Format="dd/MMMM/yyyy"/>
+            </HorizontalStackLayout>
+
+            <Label Text="Prioridades"
+                   FontFamily="poppins"
+                   FontAttributes="Bold"/>
+
+            <Label Text="1-Baja / 2-Media / 3-Alta"
+                   FontFamily="poppins"
+                   FontAttributes="Bold"/>
+
+            <Entry Placeholder="Ingrese la prioridad"
+                   Text="{Binding TareaSeleccionada.Descripcion}"/>
+
+            <Button Text="Guardar Tarea" Background="#FF238D00" Command="{Binding ValidacionesCommand}" FontAttributes="Bold" FontFamily="poppins" FontSize="20"/> 
+
+            <CollectionView ItemsSource="{Binding GestionListaCollection}" SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:GestionLista" >
+                        <Border StrokeShape="RoundRectangle 5" StrokeThickness="1" Margin="5" Padding="10">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Nombre}" FontAttributes="Bold" />
+                                <Label Text="{Binding Descripcion}" FontSize="Small" />
+                                
+                            </VerticalStackLayout>
+                        </Border>                        
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </VerticalStackLayout>
+
+
     </ScrollView>
 
 </ContentPage>
