@@ -1,79 +1,182 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<!--Creado el x:Name="PaginaGestion" para poder eliminar producto con boton-->
+<ContentPage x:Name="PaginaGestion"  
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GestionTareas_Proyecto.Views.GestionListaView"
              xmlns:viewModel="clr-namespace:GestionTareas_Proyecto.ViewModels"
              xmlns:model="clr-namespace:GestionTareas_Proyecto.Models"
              Title="GestionView">
+       <ContentPage.BindingContext>
+              <viewModel:GestionListaViewModels/>
+       </ContentPage.BindingContext>
+       <ScrollView>
+              <VerticalStackLayout Spacing="10"
+                                   Padding="10"
+                                   Background="#F5F5F5">
 
-    <ContentPage.BindingContext>
-        <viewModel:GestionListaViewModels/>
-    </ContentPage.BindingContext>
+                     <!-- Bienvenida -->
+                     <VerticalStackLayout Background="#FF004E8D"
+                                          Padding="20"
+                                          WidthRequest="1200">
+                            <Label Text="Bienvenido"
+                                   TextColor="White"
+                                   FontSize="40"
+                                   FontFamily="PoppinsBold"
+                                   FontAttributes="Bold"
+                                   HorizontalTextAlignment="Center"/>
+                            <Label Text="Tus tareas estan en las mejores manos"
+                                   TextColor="White"
+                                   FontSize="10"
+                                   FontFamily="Poppins"
+                                   HorizontalTextAlignment="Center"/>
+                     </VerticalStackLayout>
 
-    <ScrollView>
-        <VerticalStackLayout Spacing="10"
-                             Padding="15">
-            <Label Text="To-Do List"
-                   FontSize="Title"
-                   FontFamily="poppins"
-                   TextColor="#FF2A719D"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center"/>
+                     <!-- Nombre de Tarea -->
+                     <Label Text="Nombre de tarea"
+                            FontFamily="Poppins"
+                            FontAttributes="Bold"/>
+                     <Entry Placeholder="Ej: Comprar Cena"
+                            Text="{Binding TareaSeleccionada.Nombre}"/>
 
-            <Label Text="Nombre de tarea"
-                   FontFamily="poppins"
-                   FontAttributes="Bold"/>
-            <Entry Placeholder="Escribe el titulo de tu tarea"
-                   Text="{Binding TareaSeleccionada.Nombre}"/>
+                     <!-- Descripcion -->
+                     <Label Text="Descripcion de Tarea"
+                            FontFamily="Poppins"
+                            FontAttributes="Bold"/>
+                     <Entry Placeholder="Ej: Baleadas"
+                            Text="{Binding TareaSeleccionada.Descripcion}"/>
 
-            <Label Text="Descripcion de Tarea"
-                   FontFamily="poppins"
-                   FontAttributes="Bold"/>
-            <Entry Placeholder="Descripción"
-                   Text="{Binding TareaSeleccionada.Descripcion}"/>
-
-            <HorizontalStackLayout Spacing="20"
-                                   VerticalOptions="Center">
-                <Label Text="  Establezca la fecha limite"
-                    FontFamily="poppins"
+                     <!-- Fecha Limite -->
+                     <Label Text="Establezca la fecha limite"
+                            FontFamily="Poppins"
                             FontAttributes="Bold"
-                       VerticalOptions="Center"
-                       TextColor="#FF4A4AC9"/>
-                <DatePicker Date="{Binding TareaSeleccionada.FechaLimite}"
-                            FontFamily="poppins"
-                            FontAttributes="Bold"
-                            Format="dd/MMMM/yyyy"/>
-            </HorizontalStackLayout>
+                            VerticalOptions="Center"/>
+                     <DatePicker Date="{Binding TareaSeleccionada.FechaLimite}"
+                                 FontFamily="Poppins"
+                                 FontAttributes="Bold"
+                                 Format="D"/>
 
-            <Label Text="Prioridades"
-                   FontFamily="poppins"
-                   FontAttributes="Bold"/>
+                     <!-- Prioridades -->
+                     <Label Text="Prioridades"
+                            FontFamily="Poppins"
+                            FontAttributes="Bold"/>
+                     <Label Text="1-Baja / 2-Media / 3-Alta"
+                            FontFamily="Poppins"
+                            FontAttributes="Bold"/>
+                     <Entry Placeholder="Ingrese la prioridad"
+                            Keyboard="Numeric"
+                            Text="{Binding TareaSeleccionada.Prioridad}"/>
+                     <!-- Boton Guardar -->
+                     <Button Text="Guardar Tarea"
+                             Background="#FF004E8D"
+                             Command="{Binding ValidacionesCommand}"
+                             FontFamily="Poppins"
+                             FontSize="15"/>
 
-            <Label Text="1-Baja / 2-Media / 3-Alta"
-                   FontFamily="poppins"
-                   FontAttributes="Bold"/>
+                     <!-- Lista de Tareas -->
+                     <CollectionView ItemsSource="{Binding TaskCollection}"
+                                     SelectionMode="Single">
 
-            <Entry Placeholder="Ingrese la prioridad"
-                   Text="{Binding TareaSeleccionada.Descripcion}"/>
+                            <CollectionView.ItemTemplate>
+                                   <DataTemplate x:DataType="model:GestionLista">
+                                          <Border StrokeShape="RoundRectangle 10"
+                                                  StrokeThickness="1"
+                                                  Margin="10"
+                                                  Padding="20">
+                                                 <Grid RowDefinitions="Auto, Auto, Auto"
+                                                       ColumnDefinitions="*, Auto"
+                                                       RowSpacing="10">
+                                                        <!-- Nombre y descripcion -->
+                                                        <VerticalStackLayout Grid.Row="0"
+                                                                             Grid.Column="0"
+                                                                             Spacing="10">
+                                                               <Label Text="{Binding Nombre, StringFormat='Nombre: {0}'}"
+                                                                      FontFamily="poppins"
+                                                                      FontAttributes="Bold"
+                                                                      FontSize="15"/>
+                                                               <Label Text="{Binding Descripcion, StringFormat='Descripcion: {0}'}"
+                                                                      FontSize="12"
+                                                                      FontFamily="poppins"/>
+                                                               <Label Text="{Binding FechaCreacion, StringFormat='Creada el: {0:d}'}"
+                                                                      FontFamily="poppins"
+                                                                      FontSize="15"
+                                                                      HorizontalTextAlignment="Start"/>
+                                                        </VerticalStackLayout>
+                                                        <!-- Estado y Prioridad -->
+                                                        <VerticalStackLayout Grid.Row="0"
+                                                                             Grid.Column="1"
+                                                                             HorizontalOptions="End"
+                                                                             Spacing="6">
+                                                               <Label Text="{Binding Estado}"
+                                                                      FontFamily="poppins"
+                                                                      FontSize="Small"
+                                                                      HorizontalOptions="EndAndExpand"/>
 
-            <Button Text="Guardar Tarea" Background="#FF238D00" Command="{Binding ValidacionesCommand}" FontAttributes="Bold" FontFamily="poppins" FontSize="20"/> 
+                                                               <HorizontalStackLayout Spacing="5"
+                                                                                      HorizontalOptions="End">
+                                                                      <Label Text="Prioridad:"
+                                                                             FontFamily="poppins"
+                                                                             FontSize="Small"/>
+                                                                      <Label Text="{Binding Prioridad}"
+                                                                             FontAttributes="Bold"
+                                                                             FontSize="Small"
+                                                                             FontFamily="poppins"/>
+                                                               </HorizontalStackLayout>
 
-            <CollectionView ItemsSource="{Binding GestionListaCollection}" SelectionMode="Single">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:GestionLista" >
-                        <Border StrokeShape="RoundRectangle 5" StrokeThickness="1" Margin="5" Padding="10">
-                            <VerticalStackLayout>
-                                <Label Text="{Binding Nombre}" FontAttributes="Bold" />
-                                <Label Text="{Binding Descripcion}" FontSize="Small" />
-                                
-                            </VerticalStackLayout>
-                        </Border>                        
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </VerticalStackLayout>
+                                                        </VerticalStackLayout>
+                                                        <!-- Fecha Limite -->
+                                                        <Grid Grid.Row="1"
+                                                              Grid.ColumnSpan="3">
+                                                               <Grid.ColumnDefinitions>
+                                                                      <ColumnDefinition Width="*"/>
+                                                                      <ColumnDefinition Width="Auto"/>
+                                                               </Grid.ColumnDefinitions>
 
+                                                               <Label Text="{Binding FechaLimite, StringFormat='Fecha Limite: {0:d}'}"
+                                                                      FontSize="Small"
+                                                                      FontFamily="poppins"
+                                                                      VerticalOptions="Center"/>
 
-    </ScrollView>
+                                                               <!--Boton de eliminara tarea-->
+                                                               <Button Text="Eliminar tarea"
+                                                                       Background="Red"
+                                                                       Command="{Binding Source={x:Reference PaginaGestion}, Path=BindingContext.EliminarTareaItemCommand}"
+                                                                       CommandParameter="{Binding .}"
+                                                                       FontFamily="Poppins"
+                                                                       FontSize="15"
+                                                                       HorizontalOptions="End"/>
+                                                        </Grid>
 
-</ContentPage>
+                                                        <VerticalStackLayout Grid.Row="2"
+                                                                             Grid.ColumnSpan="2"
+                                                                             Spacing="5">
+                                                               <!--Boton para completar las tareas -->
+                                                               <Button Text="Completar Tarea"
+                                                                       Command="{Binding Source={x:Reference PaginaGestion}, Path=BindingContext.CompletarTareaCommand}"
+                                                                       CommandParameter="{Binding .}"
+                                                                       Background="#FF18A31A"
+                                                                       FontFamily="Poppins"
+                                                                       FontSize="15"
+                                                                       IsVisible="{Binding MostrarBotonCompletar}"/>
+                                                               <Label Text="{Binding fechaTareaCompleta, StringFormat='Tarea completada el: {0:d}'}"
+                                                                     IsVisible="{Binding EstaCompleta}"
+                                                                     FontSize="10"
+                                                                     FontFamily="Poppins"/>
+                                                        </VerticalStackLayout>
+                                                 </Grid>
+                                          </Border>
+                                   </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                     </CollectionView>
+                     <VerticalStackLayout>
+                            <!-- Boton para eliminar todas la tareas -->
+                     <Button Text="Limpiar Listado"
+                            TextColor="Black"
+                             Background="#FFFFCD06"
+                             Command="{Binding EliminarTareaCommand}"
+                             FontFamily="Poppins"
+                             FontSize="15"/>
+                             </VerticalStackLayout>
+              </VerticalStackLayout>
+       </ScrollView>
+</ContentPage> 

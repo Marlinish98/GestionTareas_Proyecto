@@ -6,4 +6,5 @@ public interface IDataBaseService
     public Task<int> CreateTask(GestionLista lista);
     public Task<int> UpdateTask(GestionLista lista);
     public Task<int> DeleteTask(GestionLista lista);
+    
 }
