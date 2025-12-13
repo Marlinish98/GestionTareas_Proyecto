@@ -83,7 +83,7 @@ public partial class GestionListaViewModels : ObservableObject
                 TareaSeleccionada.EstadoDB = "Pendiente";
             }
 
-            if (TareaSeleccionada.Prioridad <= 0 || TareaSeleccionada.Prioridad > 4)
+            if (TareaSeleccionada.Prioridad <= 0 || TareaSeleccionada.Prioridad >= 4)
             {
                 Alerta("Numero fuera de Rango");
                 return;

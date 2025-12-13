@@ -13,7 +13,7 @@
        <ScrollView>
               <VerticalStackLayout Spacing="10"
                                    Padding="10"
-                                   Background="#F5F5F5">
+                                   >
 
                      <!-- Bienvenida -->
                      <VerticalStackLayout Background="#FF004E8D"
